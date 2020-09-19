@@ -175,7 +175,7 @@ async def resume(ctx):
         print('Failed to resume')
 
 
-@bot.command(aliases=['s', 'S'])
+@bot.command(aliases=['sk', 'SK'])
 async def skip(ctx):
     voice = get(bot.voice_clients, guild=ctx.guild)
     if voice and voice.is_playing():
