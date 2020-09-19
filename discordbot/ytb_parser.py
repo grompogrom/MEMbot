@@ -56,6 +56,10 @@ def download_ytb_video(url):
     return video_title
 
 
+def test_name():
+    download_ytb_video('https://www.youtube.com/channel/UC7yMBOeBTcPhlTdI-PS-_Xg')
+
+
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     asyncio.ensure_future(get_videos_url('https://www.youtube.com/channel/UC7yMBOeBTcPhlTdI-PS-_Xg'))
