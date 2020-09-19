@@ -1,4 +1,5 @@
 import asyncio
+from const import YTB_DIR
 URL = 'https://www.youtube.com/channel/'
 HEADERS = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -51,7 +52,7 @@ def download_ytb_video(url, trackIndex):
     with youtube_dl.YoutubeDL(ydl_ops) as ydl:
         print(f'[log] Загружаю трек ...')
 
-        video_title = r'D:/python/MEMbot/audiodata/ytb/' + name + '.mp3'
+        video_title = rf'{YTB_DIR}\{name}.mp3'
         print(video_title)
         ydl.download([url])
     return video_title

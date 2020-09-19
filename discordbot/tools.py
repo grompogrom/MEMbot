@@ -1,4 +1,6 @@
-from const import *
+from const import YTB_DIR
+
+
 def make_playlist(guild: str):
     import os
     playlist = []
@@ -13,20 +15,21 @@ def make_playlist(guild: str):
     return playlist
 
 
-def remove_file(dir= YTB_DIR):
+def remove_file(directory= YTB_DIR):
     import os
+    print(f'[remove] {directory}')
     try:
-        files = os.listdir(dir)
-        if dir == YTB_DIR:
+        files = os.listdir(directory)
+        if directory == YTB_DIR:
             for file in files:
-                way = r'{0}\\{1}'.format(dir,file)
+                way = r'{0}\{1}'.format(directory, file)
                 os.remove(way)
         else:
-            os.remove(dir)
+            os.remove(directory)
     except Exception as e:
         print('deleting files error')
         print(e)
 
 
 if __name__ == '__main__':
-    remove_file(YTB_DIR)
+    remove_file()

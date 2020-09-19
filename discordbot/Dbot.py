@@ -95,11 +95,7 @@ def queue_joke(ctx):
         except IndexError:
             print('index ERROR in downloading')
 
-    if play_index > 0:
-        remove_file(downloaded_jokes[ctx.guild][play_index-1])
-
     if voice and voice.is_connected:
-
         dwl_video()
 
         if len(downloaded_jokes[ctx.guild]) > play_index:
@@ -125,6 +121,7 @@ async def joke(ctx, url=JOKE_CHANNEL):                    # fix deleting
     play_index = 0
     url_list = await get_videos_url(url)
     dwn_i = 0
+    remove_file()
 
     if not url_list:
         await ctx.send('Ошибка воспроизведения')
@@ -142,7 +139,6 @@ async def stop(ctx):
         url_list.clear()
         try:
             download_ytb_video[ctx.guild].clear()
-            remove_file(YTB_DIR)
         except TypeError:
             pass
         voice.stop()
