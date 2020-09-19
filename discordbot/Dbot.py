@@ -59,7 +59,7 @@ def queue(ctx, voice):
 
 
 
-@bot.command()
+@bot.command(aliases=['p'])
 async def play(ctx, inf=''):
     global play_index
     play_index = 0
@@ -114,7 +114,7 @@ def queue_joke(ctx):
             print('no tracks more')
 
 
-@bot.command()
+@bot.command(aliases=['j', 'ощлу', 'JOKE', 'J'])
 async def joke(ctx, url=JOKE_CHANNEL):                    # fix deleting
     global play_index, url_list, downloaded_jokes, dwn_i
     downloaded_jokes[ctx.guild] = []
@@ -132,7 +132,7 @@ async def joke(ctx, url=JOKE_CHANNEL):                    # fix deleting
         queue_joke(ctx)
 
 
-@bot.command()
+@bot.command(aliases=['S', 's'])
 async def stop(ctx):
     voice = get(bot.voice_clients, guild=ctx.guild)
     if voice and voice.is_playing():
@@ -175,7 +175,7 @@ async def resume(ctx):
         print('Failed to resume')
 
 
-@bot.command()
+@bot.command(aliases=['s', 'S'])
 async def skip(ctx):
     voice = get(bot.voice_clients, guild=ctx.guild)
     if voice and voice.is_playing():
