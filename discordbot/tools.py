@@ -13,15 +13,18 @@ def make_playlist(guild: str):
     return playlist
 
 
-def remove_file(dir):
+def remove_file(dir= YTB_DIR):
     import os
     try:
         files = os.listdir(dir)
-        for file in files:
-            way = r'{0}\\{1}'.format(dir,file)
-            os.remove(way)
+        if dir == YTB_DIR:
+            for file in files:
+                way = r'{0}\\{1}'.format(dir,file)
+                os.remove(way)
+        else:
+            os.remove(dir)
     except Exception as e:
-        print('clear files error')
+        print('deleting files error')
         print(e)
 
 

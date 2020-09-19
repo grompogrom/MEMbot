@@ -85,17 +85,19 @@ async def play(ctx, inf=''):
 
 def queue_joke(ctx):
     voice = get(bot.voice_clients, guild=ctx.guild)                   # add skip
-    global play_index, url_list, way_list, downloaded_jokes, dwn_i
+    global play_index, url_list, way_list, downloaded_jokes, dwn_i    # move files to server's dir
 
     def dwl_video():
         global dwn_i
         try:
-            downloaded_jokes[ctx.guild].append(download_ytb_video(url_list[dwn_i]))
+            downloaded_jokes[ctx.guild].append(download_ytb_video(url_list[dwn_i], dwn_i))
             dwn_i += 1
         except IndexError:
-            pass
+            print('index ERROR in downloading')
+
     if play_index > 0:
         remove_file(downloaded_jokes[ctx.guild][play_index-1])
+
     if voice and voice.is_connected:
 
         dwl_video()

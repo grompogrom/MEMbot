@@ -34,11 +34,13 @@ async def get_videos_url(url):
         return False
 
 
-def download_ytb_video(url):
+def download_ytb_video(url, trackIndex):
+    '''gets ytb url and number of track returns name of file'''
     import youtube_dl
+    name = 'track'+str(trackIndex)
     ydl_ops = {
         'format': 'bestaudio/best',
-        'outtmpl': r'D:/python/MEMbot/audiodata/ytb/%(title)s.%(ext)s',
+        'outtmpl': r'D:/python/MEMbot/audiodata/ytb/{0}.%(ext)s'.format(name),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
@@ -49,8 +51,7 @@ def download_ytb_video(url):
     with youtube_dl.YoutubeDL(ydl_ops) as ydl:
         print(f'[log] Загружаю трек ...')
 
-        info_dict = ydl.extract_info(url, download=False)
-        video_title = r'D:/python/MEMbot/audiodata/ytb/' + info_dict.get('title', None) + '.mp3'
+        video_title = r'D:/python/MEMbot/audiodata/ytb/' + name + '.mp3'
         print(video_title)
         ydl.download([url])
     return video_title
