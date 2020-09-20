@@ -30,7 +30,7 @@ async def on_guild_join(guild):
 
 
 @bot.command()
-@commands.has_permissions(administrator= True)
+@commands.has_permissions()
 async def help(ctx):
     embetfiles.hello_embed.clear_fields()
     embetfiles.hello_embed.add_field(name='ID вашего сервера: ', value=ctx.guild.id)
