@@ -66,19 +66,21 @@ async def play(ctx, inf=''):
 
     if ctx.message.author.voice.channel:
         global url_list
-        url_list = make_playlist(str(ctx.guild.id))
-        if inf.lower() == 'random' or inf.lower() == 'rnd':
-            shuffle(url_list)
-        elif inf.lower() == 'new':
-            url_list = list(reversed(url_list))
-        if not url_list:
-            await ctx.send(
-                f'Нет приколов ( \nПрисылайте свои приколы сюда https://t.me/coolroflbot \nID вашего сервера: {ctx.guild.id}')
-        else:
+        try:
+            url_list = make_playlist(str(ctx.guild.id))
+            if inf.lower() == 'random' or inf.lower() == 'rnd':
+                shuffle(url_list)
+            elif inf.lower() == 'new':
+                url_list = list(reversed(url_list))
+
             await connect(ctx)
             voice = get(bot.voice_clients, guild=ctx.guild)
 
             queue(ctx, voice)
+
+        except Exception:
+            await ctx.send(
+                f'Нет приколов ( \nПрисылайте свои приколы сюда https://t.me/coolroflbot \nID вашего сервера: {ctx.guild.id}')
     else:
         await ctx.send('Сорян, ты не подключен ни к одному войсчату')
 
