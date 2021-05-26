@@ -6,9 +6,10 @@ def save_serversID(ids):
 
 def get_serversID():
     import pickle
-    with open(r'D:\python\MEMbot\telebott/serversID.pickle', 'rb') as r:
+    with open(r'serversID.pickle', 'rb') as r:
         ids = pickle.load(r)
     return ids
+
 
 if __name__ == '__main__':
     print(get_serversID())

@@ -1,9 +1,10 @@
 def voice_record(user_name, voice_date, file, name_server):
     import os
     from telebott import ogg_mp3
-    directory_name0 = r"D:\python\MEMbot\audiodata\{0}".format(name_server)
-    directory_name1 = r'D:\python\MEMbot\audiodata\{0}\{1}'.format(name_server, user_name)
-    directory_name2 = r'D:\python\MEMbot\audiodata\{0}\{1}\{2}.ogg'.format(name_server, user_name, str(voice_date))
+    from const import VOICE_LINK
+    directory_name0 = r"{0}/{1}".format(VOICE_LINK, name_server)
+    directory_name1 = r'{0}/{1}'.format(directory_name0, user_name)
+    directory_name2 = r'{0}/{1}.ogg'.format(directory_name1, str(voice_date))
     if not os.path.exists(directory_name0):
         os.mkdir(directory_name0)
 

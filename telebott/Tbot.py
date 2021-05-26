@@ -1,11 +1,12 @@
 import telebot
 import requests
 from bot_keyboard import start_keyboard, rec_keyboard
-import servers_users, configur
+import servers_users
+import const
 from voice_opt import voice_record
 import check_connection
 
-bot = telebot.TeleBot(configur.TOKEN)
+bot = telebot.TeleBot(const.TG_TOKEN)
 voice_cash = {}
 
 
@@ -44,9 +45,11 @@ def callback_worker(call):
     chat_id = call.from_user.id
     if call.data == 'ID':
         if chat_id in user_ds_id:
+            print('[log] waitng for id')
             msge = bot.send_message(chat_id,
                                     f'Сейчас id твоего сервера {user_ds_id[call.from_user.id]}. Отправь мне новый id ')
         else:
+            print('[log] waiting for id')
             msge = bot.send_message(chat_id,
                                     'Отправь мне ID своего дискорд сервера, чтобы я рассказал это твоим друзьм )')
         bot.register_next_step_handler(msge, process_get_dsid)
@@ -69,7 +72,7 @@ def process_check_voice(message):
     if message.content_type == 'voice':
         file_info = bot.get_file(message.voice.file_id)
         file = requests.get(
-            f'https://api.telegram.org/file/bot{configur.TOKEN}/{file_info.file_path}')
+            f'https://api.telegram.org/file/bot{const.TG_TOKEN}/{file_info.file_path}')
         voice_cash[chat_id] = (file.content, message.date)
         last_msg = bot.send_voice(message.from_user.id, file.content, reply_markup=rec_keyboard)
     else:
@@ -125,6 +128,7 @@ def dell_last_msg():
 try:
     user_ds_id = servers_users.get_serversID()
 except Exception:
+    user_ds_id = {}
     print('Ошибка в загрузке user_ds_id')
 
 

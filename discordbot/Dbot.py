@@ -1,13 +1,13 @@
 import discord
 from discord.ext import commands
-from const import TOKEN, JOKE_CHANNEL, YTB_DIR
+import os
+print('[log] ', os.getcwd())
+from const import DS_TOKEN, JOKE_CHANNEL
 from discord.utils import get
 from tools import make_playlist, remove_file
 import embetfiles
-from ytb_parser import get_videos_url, download_ytb_video, downloaded_jokes
+from ytb_parser import get_videos_url, download_ytb_video
 from random import shuffle
-import os
-
 
 bot = commands.Bot(command_prefix='!')
 bot.remove_command('help')
@@ -68,6 +68,7 @@ async def play(ctx, inf=''):
         global url_list
         try:
             url_list = make_playlist(str(ctx.guild.id))
+            print('[log] playlist: ', url_list)
             if inf.lower() == 'random' or inf.lower() == 'rnd':
                 shuffle(url_list)
             elif inf.lower() == 'new':
@@ -78,7 +79,8 @@ async def play(ctx, inf=''):
 
             queue(ctx, voice)
 
-        except Exception:
+        except Exception as E:
+            print(E)
             await ctx.send(
                 f'Нет приколов ( \nПрисылайте свои приколы сюда https://t.me/coolroflbot \nID вашего сервера: {ctx.guild.id}')
     else:
@@ -221,4 +223,4 @@ async def disconnect(ctx: commands.context.Context):
         await voice.disconnect()
 
 
-bot.run(TOKEN)
+bot.run(DS_TOKEN)

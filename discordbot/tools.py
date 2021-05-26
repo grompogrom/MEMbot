@@ -1,14 +1,14 @@
-from const import YTB_DIR
+from const import YTB_DIR, VOICE_LINK
 
 
 def make_playlist(guild: str):
     import os
     playlist = []
-    link = r'D:\python\MEMbot\audiodata\{0}'.format(guild)
+    link = VOICE_LINK + r'/{0}'.format(guild)
     for user in os.listdir(link):
-        link1 = link + r'\{0}'.format(user)
+        link1 = link + r'/{0}'.format(user)
         for track in os.listdir(link1):
-            link2 = link1 + r'\{0}'.format(track)
+            link2 = link1 + r'/{0}'.format(track)
             playlist.append(link2)
             del link2
         del link1
@@ -22,7 +22,7 @@ def remove_file(directory= YTB_DIR):
         files = os.listdir(directory)
         if directory == YTB_DIR:
             for file in files:
-                way = r'{0}\{1}'.format(directory, file)
+                way = r'{0}/{1}'.format(directory, file)
                 os.remove(way)
         else:
             os.remove(directory)
